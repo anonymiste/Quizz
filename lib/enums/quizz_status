@@ -1,0 +1,81 @@
+// enums/quiz_status.dart
+enum QuizzStatus {
+  draft('draft'),
+  published('published'),
+  archived('archived'),
+  scheduled('scheduled');
+
+  final String value;
+
+  const QuizzStatus(this.value);
+
+  // Conversion depuis String
+  static QuizzStatus fromString(String value) {
+    return QuizzStatus.values.firstWhere(
+      (status) => status.value == value,
+      orElse: () => QuizStatus.draft,
+    );
+  }
+
+  // Label pour l'affichage
+  String get label {
+    switch (this) {
+      case QuizzStatus.draft:
+        return "Brouillon";
+      case QuizzStatus.published:
+        return "Publié";
+      case QuizzStatus.archived:
+        return "Archivé";
+      case QuizzStatus.scheduled:
+        return "Planifié";
+    }
+  }
+
+  // Couleur Material
+  int get materialColor {
+    switch (this) {
+      case QuizzStatus.draft:
+        return 0xFF9E9E9E; // grey
+      case QuizzStatus.published:
+        return 0xFF4CAF50; // green
+      case QuizzStatus.archived:
+        return 0xFF607D8B; // blue grey
+      case QuizzStatus.scheduled:
+        return 0xFFFF9800; // orange
+    }
+  }
+
+  // Icône
+  String get icon {
+    switch (this) {
+      case QuizzStatus.draft:
+        return "edit";
+      case QuizzStatus.published:
+        return "public";
+      case QuizzStatus.archived:
+        return "archive";
+      case QuizzStatus.scheduled:
+        return "schedule";
+    }
+  }
+
+  // Est publié
+  bool get isPublished => this == QuizzStatus.published;
+
+  // Est brouillon
+  bool get isDraft => this == QuizzStatus.draft;
+
+  // Est archivé
+  bool get isArchived => this == QuizzStatus.archived;
+
+  // Est planifié
+  bool get isScheduled => this == QuizzStatus.scheduled;
+
+  // Liste des valeurs
+  static List<String> get valuesList {
+    return QuizStatus.values.map((status) => status.value).toList();
+  }
+
+  @override
+  String toString() => value;
+}
