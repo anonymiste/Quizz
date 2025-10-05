@@ -7,8 +7,8 @@ import 'package:quizz_interface/screen/Page/admin/stats.dart';
 import 'package:quizz_interface/screen/Page/admin/users_management.dart';
 import 'package:quizz_interface/screen/Page/quizzliste.dart';
 import 'package:quizz_interface/screen/Page/student/statistic.dart';
-import 'package:quizz_interface/screen/Page/teacher/cours.dart';
-import 'package:quizz_interface/screen/Page/teacher/quizz.dart';
+import 'package:quizz_interface/screen/Page/teacher/cours/cours_main.dart';
+import 'package:quizz_interface/screen/Page/teacher/quizz/quizz_main.dart';
 import 'package:quizz_interface/screen/Page/teacher/teacher.stats.dart';
 
 class NavigationService {

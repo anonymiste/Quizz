@@ -170,12 +170,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Card(
             child: Column(
               children: [
-                _buildSettingItem(
-                  'Changer le mot de passe',
-                  '',
-                  Icons.lock,
-                  onTap: () => _changePassword(),
-                ),
                 _buildDivider(),
                 _buildSettingItem(
                   'Déconnexion',
@@ -378,13 +372,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _showComingSoon();
   }
 
-  void _changePassword() {
-    showDialog(
-      context: context,
-      builder: (context) => const ChangePasswordDialog(),
-    );
-  }
-
   void _logout(BuildContext context) {
     showDialog(
       context: context,
@@ -435,103 +422,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         content: Text('Fonctionnalité à venir'),
         duration: Duration(seconds: 2),
       ),
-    );
-  }
-}
-
-// Dialog pour changer le mot de passe
-class ChangePasswordDialog extends StatefulWidget {
-  const ChangePasswordDialog({super.key});
-
-  @override
-  State<ChangePasswordDialog> createState() => _ChangePasswordDialogState();
-}
-
-class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
-  final _formKey = GlobalKey<FormState>();
-  final _currentPasswordController = TextEditingController();
-  final _newPasswordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Changer le mot de passe'),
-      content: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: _currentPasswordController,
-              decoration: const InputDecoration(
-                labelText: 'Mot de passe actuel',
-                prefixIcon: Icon(Icons.lock),
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Veuillez entrer votre mot de passe actuel';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              controller: _newPasswordController,
-              decoration: const InputDecoration(
-                labelText: 'Nouveau mot de passe',
-                prefixIcon: Icon(Icons.lock_outline),
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Veuillez entrer un nouveau mot de passe';
-                }
-                if (value.length < 6) {
-                  return 'Le mot de passe doit contenir au moins 6 caractères';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              controller: _confirmPasswordController,
-              decoration: const InputDecoration(
-                labelText: 'Confirmer le mot de passe',
-                prefixIcon: Icon(Icons.lock_reset),
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value != _newPasswordController.text) {
-                  return 'Les mots de passe ne correspondent pas';
-                }
-                return null;
-              },
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Annuler'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Mot de passe changé avec succès'),
-                  backgroundColor: Colors.green,
-                ),
-              );
-            }
-          },
-          child: const Text('Changer'),
-        ),
-      ],
     );
   }
 }
